@@ -1,0 +1,10 @@
+
+        <div class="header-row" >
+            <div class="{{'col'+($index +1)}}" ng-repeat="title in $ctrl.titles">{{title}}</div>
+        </div>
+    <div class="main-row" ng-repeat="message in $ctrl.content track by $index ">
+        <div class="col1">{{$index +1}}</div>
+        <div class="col2">{{message.from}}</div>
+        <div class="col3">{{message.subject}}</div>
+        <div class="col4" bind-html-compile="message.text"></div>
+    </div>

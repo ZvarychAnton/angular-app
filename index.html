@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="angularApp">
+  <head>
+    <title>Google+ test</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  </head>
+  <body ng-controller="testAppCtrl">
+    <div class="container">
+      <h1>Login by Google+</h1>
+      <button ng-show="isVisible"  ng-click="handleAuthClick()" class="btn btn-primary ng-hide">Authorize</button>
+
+      <message-list content="messagesArray"></message-list>
+    </div>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="build/app.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="build/style.css">
+  </body>
+</html>
