@@ -12,6 +12,7 @@ angular.module("angularApp")
         $scope.isVisible = true;
         $scope.messagesArray = [];
         $timeout = $injector.get("$timeout");
+        var decodeFabric = $injector.get("decodeFabric");
 
         var clientId = '851524981879-65cg7bv2248l88lqq3bpv87o29h22jn8.apps.googleusercontent.com';
         var apiKey = 'AIzaSyBJrYvdF581JiXwzxVzif2sOSoOZ6C--No';
@@ -44,7 +45,6 @@ angular.module("angularApp")
             if(authResult && !authResult.error) {
                 $scope.loadGmailApi();
                 $scope.isVisible = false;
-                $('.table-inbox').removeClass("hidden");
             } else {
                 $scope.isVisible = true;
             }
@@ -67,14 +67,13 @@ angular.module("angularApp")
                         'userId': 'me',
                         'id': message.id
                     });
-                    //messageRequest.execute(appendMessageRow);
                     messageRequest.execute(function(response) {
 
                         var messageData = {
-                          'from': getHeader(response.payload.headers, 'From'),
-                          'subject': getHeader(response.payload.headers, 'Subject'),
-                          'date': getHeader(response.payload.headers, 'Date'),
-                          'text': getBody(response.payload)
+                          'from': decodeFabric.getHeader(response.payload.headers, 'From'),
+                          'subject': decodeFabric.getHeader(response.payload.headers, 'Subject'),
+                          'date': decodeFabric.getHeader(response.payload.headers, 'Date'),
+                          'text': decodeFabric.getBody(response.payload)
                         };
                         $scope.messagesArray.push(messageData);
                         //apply from js context
@@ -83,47 +82,6 @@ angular.module("angularApp")
                 });
             });
         };
-        
-        function getHeader(headers, index) {
-            var header = '';
-            angular.forEach(headers, function(type){
-                if(type.name === index){
-                    header = type.value;
-                }
-            });
-            return header;
-        }
-        function getBody(message) {
-            var encodedBody = '';
-            if(typeof message.parts === 'undefined')
-            {
-                encodedBody = message.body.data;
-            }
-            else
-            {
-                encodedBody = getHTMLPart(message.parts);
-            }
-            encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
-            return decodeURIComponent(escape(window.atob(encodedBody)));
-        }
-        function getHTMLPart(arr) {
-            for(var x = 0; x <= arr.length; x++)
-            {
-                if(typeof arr[x].parts === 'undefined')
-                {
-                    if(arr[x].mimeType === 'text/html')
-                    {
-                        return arr[x].body.data;
-                    }
-                }
-                else
-                {
-                    return getHTMLPart(arr[x].parts);
-                }
-            }
-            return '';
-        }
-
 
         $timeout(function() {
             $scope.handleClientLoad();

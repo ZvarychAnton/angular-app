@@ -18,6 +18,7 @@ gulp.task('sass', function() {
 gulp.task('compress', function() {
     gulp.src([
         'node_modules/angular/angular.js',
+        'modules/libraries/**/*.js',
         'app.js',
         'modules/**/*.js'
 
