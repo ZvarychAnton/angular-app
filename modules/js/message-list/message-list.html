@@ -1,10 +1,11 @@
 
-        <div class="header-row" >
-            <div class="{{'col'+($index +1)}}" ng-repeat="title in $ctrl.titles">{{title}}</div>
-        </div>
-    <div class="main-row" ng-repeat="message in $ctrl.content track by $index ">
-        <div class="col1">{{$index +1}}</div>
-        <div class="col2">{{message.from}}</div>
-        <div class="col3">{{message.subject}}</div>
-        <div class="col4" bind-html-compile="message.text"></div>
-    </div>
+    <md-grid-list md-cols="18" md-row-height="20px" >
+    <md-grid-tile md-colspan="{{$index*$index +1}}"  ng-repeat="title in $ctrl.titles" >{{title}}</md-grid-tile>
+    </md-grid-list>
+
+    <md-grid-list md-cols="18" md-row-height="300px" ng-repeat="message in $ctrl.content track by $index ">
+        <md-grid-tile  md-colspan="1">{{$index +1}}</md-grid-tile>
+        <md-grid-tile  md-colspan="2">{{message.from}}</md-grid-tile>
+        <md-grid-tile  md-colspan="5">{{message.subject}}</md-grid-tile>
+        <md-grid-tile  md-colspan="10" bind-html-compile="message.text"></md-grid-tile>
+    </md-grid-list>

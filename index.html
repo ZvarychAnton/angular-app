@@ -10,9 +10,11 @@
   </head>
   <body ng-controller="testAppCtrl">
     <div class="container">
-      <h1>Login by Google+</h1>
+      <md-toolbar>
+        <h1>Login by Google+</h1>
+      </md-toolbar>
 
-          <md-button ng-show="isVisible"  ng-click="handleAuthClick()" class="md-raised md-primary">Authorize</md-button>
+      <md-button ng-show="isVisible"  ng-click="handleAuthClick()" class="md-raised md-primary">Authorize</md-button>
 
       <message-list content="messagesArray"></message-list>
     </div>
